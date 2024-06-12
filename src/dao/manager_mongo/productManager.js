@@ -30,10 +30,10 @@ class ProductManager {
       });
 
       result.prevLink = result.hasPrevPage
-        ? `${process.env.RAILWAY_PUBLIC_DOMAIN}/api/products?page=${result.prevPage}`
+        ? `https://apataproyectofinal.up.railway.app/api/products?page=${result.prevPage}`
         : null;
       result.nextLink = result.hasNextPage
-        ? `${process.env.RAILWAY_PUBLIC_DOMAIN}/api/products?page=${result.nextPage}`
+        ? `https://apataproyectofinal.up.railway.app/api/products?page=${result.nextPage}`
         : null;
       result.status = "success";
       result.payload = result.docs;

@@ -85,10 +85,10 @@ export async function productsView(req, res) {
     const products = await productService.get(req.query);
     let isValid = products.page > 0 && products.page <= products.totalPages;
     products.prevLink = products.hasPrevPage
-      ? `${process.env.RAILWAY_PUBLIC_DOMAIN}/products?page=${products.prevPage}`
+      ? `https://apataproyectofinal.up.railway.app/products?page=${products.prevPage}`
       : null;
     products.nextLink = products.hasNextPage
-      ? `${process.env.RAILWAY_PUBLIC_DOMAIN}/products?page=${products.nextPage}`
+      ? `https://apataproyectofinal.up.railway.app/products?page=${products.nextPage}`
       : null;
     res.render("products", { products, limit, page, isValid, user, isAdmin, port });
   } catch (error) {
