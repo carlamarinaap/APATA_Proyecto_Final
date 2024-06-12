@@ -30,7 +30,7 @@ export async function realTimeProducts(req, res) {
     }
     const products = await productService.get(req.body);
     const allProducts = await productService.get({ limit: products.totalDocs });
-    res.render("realTimeProducts", { allProducts, userEmail, port });
+    res.render("realTimeProducts", { allProducts, userEmail });
   } catch (error) {
     req.logger.ERROR(error.message);
     res.status(500).send(error.messages);
@@ -90,7 +90,7 @@ export async function productsView(req, res) {
     products.nextLink = products.hasNextPage
       ? `https://apataproyectofinal.up.railway.app/products?page=${products.nextPage}`
       : null;
-    res.render("products", { products, limit, page, isValid, user, isAdmin, port });
+    res.render("products", { products, limit, page, isValid, user, isAdmin });
   } catch (error) {
     req.logger.ERROR(error.message);
     res.status(500).send(error.messages);
