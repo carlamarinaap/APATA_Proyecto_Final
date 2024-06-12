@@ -119,7 +119,7 @@ socketServer.on("connection", (socket) => {
       await pm.deleteProduct(prod);
       const allProducts = await productService.get({ limit: products.totalDocs });
       let deleted = true;
-      if (owner !== "admin") {
+      if (owner !== "admin" || (product.owner !== "admin" && owner === "admin")) {
         const user = await um.getUserByEmail(owner);
         socketServer.emit("card", { allProducts, owner, deleted });
         let result = await transport.sendMail({
