@@ -1,0 +1,38 @@
+<div class="containter m-3 text-center mx-0">
+  <h1>Administración de usuarios</h1>
+  <div class="card mx-auto" style="width: 60rem;">
+    <div class="card-body">
+      <ul class="list-group m-1" id="usersList">
+        {{#each users}}
+          <li class="list-group-item bg-light m-1">
+            <div class="d-flex justify-content-between">
+              <div>
+                <p class="card-text text-start">Usuario: {{this.email}}</p>
+                <p class="card-text text-start">Rol: {{this.role}}</p>
+              </div>
+              <div class="align-content-center">
+                <button
+                  class="btn btn-outline-primary"
+                  onclick="changeRole('{{this.email}}')"
+                >Cambiar Rol</button>
+                <button
+                  href="#"
+                  class="btn btn-danger"
+                  onclick="deleteUser('{{this._id}}')"
+                >Eliminar</button>
+              </div>
+            </div>
+          </li>
+        {{/each}}
+      </ul>
+    </div>
+
+  </div>
+  <div class="m-3">
+    <a class="btn btn-secondary btn-sm" href="/products">Volver</a>
+  </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/socketAdmin.js"></script>
