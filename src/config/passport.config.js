@@ -130,7 +130,7 @@ const initializePassport = () => {
       {
         clientID: "Iv1.6d1c1b3a5778cb34",
         clientSecret: "551f13b31eb6eb2b526ac1cf0ca51af93a564b4c",
-        callbackURL: `${process.env.RAILWAY_PUBLIC_DOMAIN}/api/sessions/githubcallbackapata`,
+        callbackURL: `https://${process.env.RAILWAY_PUBLIC_DOMAIN}/api/sessions/githubcallbackapata`,
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
