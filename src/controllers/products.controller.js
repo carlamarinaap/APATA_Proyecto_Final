@@ -136,7 +136,7 @@ export async function mail(req, res) {
       <div style="background-color: #f2f2f2; padding: 20px; text-align: center;">
         <h3 style="color: #28a745;">Usted ha solicitado recuperar la contraseña</h3>
         <p style="font-family: Arial, sans-serif; color: #333;">Haga click en el siguiente botón que lo redigirá a la página de recuperación</p>
-        <a href="http://${process.env.RAILWAY_PUBLIC_DOMAIN}:8080/restoreLink?email=${correo}" class="btn btn-success" style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: #fff; text-decoration: none; border: 1px solid #218838; border-radius: 5px;" onmouseover="this.style.backgroundColor='#218838'; this.style.borderColor='#1e7e34'" onmouseout="this.style.backgroundColor='#28a745'; this.style.borderColor='#218838'">Recuperar Contraseña</a>
+        <a href="http://${process.env.RAILWAY_PUBLIC_DOMAIN}/restoreLink?email=${correo}" class="btn btn-success" style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: #fff; text-decoration: none; border: 1px solid #218838; border-radius: 5px;" onmouseover="this.style.backgroundColor='#218838'; this.style.borderColor='#1e7e34'" onmouseout="this.style.backgroundColor='#28a745'; this.style.borderColor='#218838'">Recuperar Contraseña</a>
       </div>
     `,
       attachments: [],
