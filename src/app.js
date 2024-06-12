@@ -115,30 +115,34 @@ socketServer.on("connection", (socket) => {
     const { prod, owner } = data;
     const product = await pm.getProductById(prod);
     const products = await productService.get({});
+    let allProducts;
+    let deleted;
     if (product.owner === owner || owner === "admin") {
       await pm.deleteProduct(prod);
-      const allProducts = await productService.get({ limit: products.totalDocs });
-      let deleted = true;
-      if (owner !== "admin" || (product.owner !== "admin" && owner === "admin")) {
-        const user = await um.getUserByEmail(owner);
-        socketServer.emit("card", { allProducts, owner, deleted });
-        let result = await transport.sendMail({
-          from: "Carla del Proyecto de Coder <carla.apata@gmail.com>",
-          to: `${user.first_name} ${user.last_name} <${user.email}>`,
-          subject: "Se eliminó un producto",
-          html: `
-                <div style="background-color: #f2f2f2; padding: 20px; text-align: center;">
-                  <h3 style="color: #28a745;">Se ha eliminado el producto <span style="color: #280000;"> ${product.title}</span> con id<span style="color: #280000;"> ${product._id}</span> </h3>
-                  <p style="color: #333333;">Si no fuiste vos por favor contactate con nosotros para mayor asesoramiento</p>
-                </div>
-                `,
-          attachments: [],
-        });
-      }
-    } else {
-      const allProducts = await productService.get({ limit: products.totalDocs });
-      socketServer.emit("card", { allProducts, owner });
+      allProducts = await productService.get({ limit: products.totalDocs });
+      deleted = true;
     }
+    if (
+      (product.owner !== "admin" && owner === "admin") ||
+      (product.owner === owner && owner !== "admin")
+    ) {
+      const user = await um.getUserByEmail(product.owner);
+      socketServer.emit("card", { allProducts, owner, deleted });
+      let result = await transport.sendMail({
+        from: "Carla del Proyecto de Coder <carla.apata@gmail.com>",
+        to: `${user.first_name} ${user.last_name} <${user.email}>`,
+        subject: "Se eliminó un producto",
+        html: `
+              <div style="background-color: #f2f2f2; padding: 20px; text-align: center;">
+                <h3 style="color: #28a745;">Se ha eliminado el producto <span style="color: #280000;"> ${product.title}</span> con id<span style="color: #280000;"> ${product._id}</span> </h3>
+                <p style="color: #333333;">Si no fuiste vos por favor contactate con nosotros para mayor asesoramiento</p>
+              </div>
+              `,
+        attachments: [],
+      });
+      allProducts = await productService.get({ limit: products.totalDocs });
+    }
+    socketServer.emit("card", { allProducts, owner, deleted });
   });
 
   // Socket UsersAdmin
