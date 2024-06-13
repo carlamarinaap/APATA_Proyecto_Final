@@ -5,7 +5,7 @@
 
 Esta API proporciona endpoints para manejar productos, carritos, sesiones y usuarios en un sistema de comercio electrónico.
 
-**Base URL:** `https://apataproyectofinal.up.railway.app/login`
+**Base URL:** `https://apataproyectofinal.up.railway.app`
 
 ## Autenticación
 
