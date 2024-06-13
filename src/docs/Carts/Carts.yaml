@@ -27,14 +27,14 @@ paths:
         500:
           description: "Error interno del servidor intentando crear un carrito."
 
-  /api/carts/{id}:
+  /api/carts/{cid}:
     get:
       summary: "Obtener un carrito por ID"
       tags:
         - Carts
       description: "Devuelve un carrito específico según su ID."
       parameters:
-        - name: "id"
+        - name: "cid"
           in: "path"
           description: "ID del carrito a buscar."
           required: true
@@ -92,6 +92,69 @@ paths:
           description: "Carrito no encontrado. El ID proporcionado no coincide con ningún carrito."
         500:
           description: "Error interno del servidor intentando borrar un carrito."
+
+  /api/carts/{cid}/products/{pid}:
+    post:
+      summary: "Agregar un producto al carrito"
+      tags:
+        - Carts
+      description: "Agrega al carrito segun su ID el producto por ID."
+      parameters:
+        - name: "cid"
+          in: "path"
+          description: "ID del carrito a buscar."
+          required: true
+          type: "string"
+        - name: "pid"
+          in: "path"
+          description: "ID del producto a buscar."
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Operación exitosa. El producto fue agregado al carrito."
+          schema:
+            $ref: "#/definitions/Cart"
+        404:
+          description: "Carrito o producto no encontrado. El ID proporcionado no coincide con ningún carrito o producto."
+        500:
+          description: "Error interno del servidor intentando obtener un la información."
+    put:
+      summary: "Actualizar la cantidad de un producto en el carrito"
+      tags:
+        - Carts
+      description: "Actualiza la cantidad de un produto en el carrito por su ID"
+      parameters:
+        - name: "cid"
+          in: "path"
+          description: "ID del carrito a buscar."
+          required: true
+          type: "string"
+        - name: "pid"
+          in: "path"
+          description: "ID del producto a buscar."
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Objeto que contiene la nueva cantidad del producto."
+          required: true
+          schema:
+            type: object
+            properties:
+              quantity:
+                type: integer
+                description: "Nueva cantidad del producto en el carrito."
+
+      responses:
+        200:
+          description: "Operación exitosa. La cantidad del producto fue actualizado con éxito."
+          schema:
+            $ref: "#/definitions/Cart"
+        404:
+          description: "Carrito o producto no encontrado. El ID proporcionado no coincide con ningún carrito o producto."
+        500:
+          description: "Error interno del servidor intentando obtener un la información."
 
 components:
   schemas:
